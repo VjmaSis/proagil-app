@@ -88,11 +88,11 @@
         </tab>
         <tab heading="Lotes">
           <div>
-            <div>
-              <fieldset formGroupName="lotes" class="form-group">
+            <div formArrayName="lotes" *ngFor="let lote of lotes.controls, let i=index">
+              <fieldset [formGroupName]="i" class="form-group">
                 <legend class="d-flex justify-content-between capitalize">
                   {{'Lotes'}}
-                  <button class="btn btn-sm btn-warning mb-1">remove</button>
+                  <button class="btn btn-sm btn-warning mb-1" (click)="removerLote(i)">Remove</button>
                 </legend>
                 <div class="row">
                   <div class="form-group col-md-4">
@@ -119,22 +119,21 @@
                 </div>
               </fieldset>
             </div>
-            <button class="btn btn-outline-primary">
+            <button class="btn btn-outline-primary" (click)="adicionarLotes()">
               Adicionar Lote
             </button>
           </div>
         </tab>
         <tab heading="Redes Sociais">
-          <div>
-            <fieldset formGroupName="redesSociais" class="form-group">
+          <div formArrayName="redesSociais" *ngFor="let redeSocial of redesSociais.controls, let i=index">
+            <fieldset [formGroupName]="i" class="form-group">
               <legend class="d-flex justify-content-between capitalize">
-                <button class="btn btn-sm btn-warning mb-1"
-                  >remove</button>
+                <button class="btn btn-sm btn-warning mb-1" (click)="removerRedeSocial(i)">Remove</button>
               </legend>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label>Nome</label>
-                  <select class="form-control" formControlName="nome">
+                  <select class="form-control mb-2" formControlName="nome">
                     <option value="">Selecione</option>
                     <option value="fab fa-youtube">Youtube</option>
                     <option value="fab fa-instagram">Instagram</option>
@@ -156,7 +155,7 @@
               </div>
             </fieldset>
           </div>
-          <button class="btn btn-outline-primary">
+          <button class="btn btn-outline-primary" (click)="adicionarRedesSocial()">
             Adicionar Rede Social
           </button>
         </tab>
@@ -172,8 +171,8 @@
     <div class="col-md-4">
       <div class="form-row">
         <div class="form-group col-md-9">
-          <input type="file" #file (change)="onFileChange($event.target.files)" class="form-control is-invalid"
-            formControlName="imagemURL" placeholder="" style="display: none">
+          <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid"
+          formControlName="imagemURL" placeholder="" style="display: none">
         </div>
       </div>
       <div class="card profile-card-2">
